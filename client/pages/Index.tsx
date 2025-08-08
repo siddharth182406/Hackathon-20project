@@ -70,14 +70,21 @@ const Index = () => {
       </section>
 
       {/* Main Interface */}
-      {activeSection && (
-        <section className="container mx-auto px-4 pb-16">
-          <div className="max-w-4xl mx-auto">
-            {activeSection === 'upload' && <DocumentUpload />}
-            {activeSection === 'search' && <SearchInterface />}
+      <section className="container mx-auto px-4 pb-16">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid lg:grid-cols-2 gap-8">
+            {/* Document Upload Column */}
+            <div>
+              <DocumentUpload />
+            </div>
+
+            {/* Question/Search Column */}
+            <div>
+              <SearchInterface />
+            </div>
           </div>
-        </section>
-      )}
+        </div>
+      </section>
 
       {/* Features Section */}
       <section className="container mx-auto px-4 py-16 border-t">
