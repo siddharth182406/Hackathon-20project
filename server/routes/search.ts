@@ -7,36 +7,56 @@ const mockDocumentContent = [
     id: "1",
     filename: "Employment_Contract_2024.pdf",
     content: [
-      "The employee shall be entitled to 25 days of annual vacation leave, health insurance coverage, and performance-based bonuses as outlined in Section 4.2 of this agreement.",
-      "Termination of employment may occur with 30 days written notice from either party. Severance pay will be calculated based on years of service.",
-      "Confidentiality obligations continue for 2 years post-employment. Trade secrets and proprietary information must not be disclosed."
+      "The employee shall be entitled to 25 days of annual vacation leave, health insurance coverage including dental and vision, and performance-based bonuses as outlined in Section 4.2 of this agreement.",
+      "Termination of employment may occur with 30 days written notice from either party. Severance pay will be calculated based on years of service at 2 weeks per year worked.",
+      "Confidentiality obligations continue for 2 years post-employment. Trade secrets and proprietary information must not be disclosed to competitors.",
+      "Medical insurance covers 100% of preventive care, 80% of specialist visits, and 70% of hospital stays. Dental coverage includes cleanings, fillings, and major procedures.",
+      "Annual salary is $85,000 with quarterly performance reviews. Cost of living adjustments are made annually based on market rates.",
+      "Remote work is permitted up to 3 days per week with manager approval. Office attendance required on Mondays and Fridays."
     ]
   },
   {
-    id: "2", 
+    id: "2",
     filename: "Privacy_Policy_v3.docx",
     content: [
-      "Personal data collected includes name, email address, and usage analytics. Data is processed in accordance with GDPR regulations and stored securely using AES-256 encryption.",
-      "Users have the right to access, modify, or delete their personal information. Data retention period is 7 years for compliance purposes.",
-      "Third-party integrations are limited to essential services only. No data is sold or shared for marketing purposes."
+      "Personal data collected includes name, email address, phone number, and usage analytics. Data is processed in accordance with GDPR regulations and stored securely using AES-256 encryption.",
+      "Users have the right to access, modify, or delete their personal information within 30 days of request. Data retention period is 7 years for compliance purposes.",
+      "Third-party integrations are limited to essential services only. No personal data is sold or shared for marketing purposes without explicit consent.",
+      "Cookies are used for authentication and user preferences. Analytics cookies can be disabled in browser settings without affecting functionality.",
+      "Data breaches will be reported to authorities within 72 hours and users notified within 5 business days of discovery."
     ]
   },
   {
     id: "3",
-    filename: "Vendor_Agreement_TechCorp.pdf", 
+    filename: "Vendor_Agreement_TechCorp.pdf",
     content: [
-      "Payment terms are Net 30 days from invoice date. Late payments will incur a 1.5% monthly service charge. All payments must be made in USD.",
-      "Service level agreement guarantees 99.9% uptime. Downtime compensation is prorated based on actual service interruption.",
-      "Either party may terminate this agreement with 90 days written notice. Outstanding payments must be settled within 15 days of termination."
+      "Payment terms are Net 30 days from invoice date. Late payments will incur a 1.5% monthly service charge. All payments must be made in USD via wire transfer or ACH.",
+      "Service level agreement guarantees 99.9% uptime during business hours (9 AM - 6 PM EST). Downtime compensation is prorated at $500 per hour of interruption.",
+      "Either party may terminate this agreement with 90 days written notice. Outstanding payments must be settled within 15 days of termination.",
+      "Software licensing fees are $2,500 per month for up to 100 users. Additional users charged at $25 per user per month.",
+      "Technical support is available 24/7 via phone and email. Priority support response time is 4 hours for critical issues."
     ]
   },
   {
     id: "4",
     filename: "Partnership_Agreement_2024.pdf",
     content: [
-      "Revenue sharing is split 60/40 between partners based on contribution levels. Quarterly reviews will assess performance metrics.",
-      "Intellectual property developed jointly belongs to both parties. Individual IP contributions remain with the originating party.",
-      "Dispute resolution follows arbitration procedures outlined in Section 12. Legal costs are shared equally between parties."
+      "Revenue sharing is split 60/40 between partners based on contribution levels. Quarterly reviews will assess performance metrics and adjust if needed.",
+      "Intellectual property developed jointly belongs to both parties equally. Individual IP contributions remain with the originating party.",
+      "Dispute resolution follows arbitration procedures outlined in Section 12. Legal costs are shared equally between parties unless gross negligence is proven.",
+      "Initial investment required is $50,000 from each partner. Additional capital calls require unanimous agreement.",
+      "Partnership may be dissolved with 6 months notice. Asset distribution follows the 60/40 revenue sharing model."
+    ]
+  },
+  {
+    id: "5",
+    filename: "Benefits_Handbook_2024.pdf",
+    content: [
+      "Dental insurance covers 100% of preventive care including cleanings and X-rays. Basic procedures like fillings covered at 80%, major work at 50%.",
+      "Vision coverage includes annual eye exams and $300 allowance for frames or contacts. Prescription lenses covered up to $150 per year.",
+      "Flexible spending accounts allow pre-tax savings up to $3,050 for medical expenses and $5,000 for dependent care.",
+      "401(k) matching is 100% of first 3% and 50% of next 2%. Vesting is immediate for employee contributions, 3 years for company match.",
+      "Paid time off accrues at 15 days per year for first 3 years, 20 days for years 4-10, and 25 days after 10 years of service."
     ]
   }
 ];
