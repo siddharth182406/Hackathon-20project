@@ -47,24 +47,10 @@ const Index = () => {
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
             Upload policy documents, contracts, emails, and more. Ask questions in natural language and get precise, contextual answers instantly.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center pt-6">
-            <Button 
-              size="lg" 
-              className="text-lg px-8 py-6"
-              onClick={() => setActiveSection('upload')}
-            >
-              <Upload className="h-5 w-5 mr-2" />
-              Upload Documents
-            </Button>
-            <Button 
-              variant="outline" 
-              size="lg" 
-              className="text-lg px-8 py-6"
-              onClick={() => setActiveSection('search')}
-            >
-              <Search className="h-5 w-5 mr-2" />
-              Search Documents
-            </Button>
+          <div className="text-center pt-6">
+            <p className="text-lg text-muted-foreground">
+              Upload your documents on the left, then ask questions on the right to get instant answers.
+            </p>
           </div>
         </div>
       </section>
