@@ -65,28 +65,31 @@ function calculateRelevanceScore(query: string, content: string): number {
   return Math.min(0.9, baseScore);
 }
 
-function generateSummary(query: string, results: SearchResult[]): string {
-  const topics = [
-    { keywords: ['payment', 'invoice', 'cost', 'fee', 'price'], topic: 'payment terms' },
-    { keywords: ['terminate', 'end', 'cancel', 'notice'], topic: 'termination clauses' },
-    { keywords: ['data', 'privacy', 'gdpr', 'information'], topic: 'data privacy policies' },
-    { keywords: ['vacation', 'leave', 'benefits', 'insurance'], topic: 'employee benefits' },
-    { keywords: ['confidential', 'proprietary', 'trade secret'], topic: 'confidentiality agreements' },
-    { keywords: ['revenue', 'profit', 'sharing', 'partnership'], topic: 'revenue sharing arrangements' }
-  ];
-
+function generateComprehensiveAnswer(query: string, topResult: SearchResult): string {
   const queryLower = query.toLowerCase();
-  const relevantTopics = topics.filter(topic => 
-    topic.keywords.some(keyword => queryLower.includes(keyword))
-  );
 
-  const documentsFound = results.length;
-  const topicMentions = relevantTopics.map(t => t.topic).join(', ');
+  // Generate a comprehensive answer based on the top result
+  const answers = {
+    payment: `Based on the document "${topResult.filename}", ${topResult.excerpt}`,
+    termination: `According to the policy in "${topResult.filename}", ${topResult.excerpt}`,
+    privacy: `The privacy policy states in "${topResult.filename}": ${topResult.excerpt}`,
+    benefits: `Regarding benefits, the document "${topResult.filename}" specifies: ${topResult.excerpt}`,
+    confidential: `The confidentiality terms in "${topResult.filename}" indicate: ${topResult.excerpt}`,
+    default: `Based on the most relevant information found in "${topResult.filename}": ${topResult.excerpt}`
+  };
 
-  if (relevantTopics.length > 0) {
-    return `Based on your query about ${topicMentions}, I found ${documentsFound} relevant section${documentsFound > 1 ? 's' : ''} across your documents. The information covers key provisions and requirements related to your search.`;
+  if (queryLower.includes('payment') || queryLower.includes('cost') || queryLower.includes('fee')) {
+    return answers.payment;
+  } else if (queryLower.includes('terminate') || queryLower.includes('end') || queryLower.includes('cancel')) {
+    return answers.termination;
+  } else if (queryLower.includes('privacy') || queryLower.includes('data') || queryLower.includes('gdpr')) {
+    return answers.privacy;
+  } else if (queryLower.includes('benefit') || queryLower.includes('vacation') || queryLower.includes('insurance')) {
+    return answers.benefits;
+  } else if (queryLower.includes('confidential') || queryLower.includes('proprietary')) {
+    return answers.confidential;
   } else {
-    return `I found ${documentsFound} relevant section${documentsFound > 1 ? 's' : ''} related to your query. The search results include excerpts from multiple documents that contain pertinent information.`;
+    return answers.default;
   }
 }
 
