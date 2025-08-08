@@ -21,5 +21,13 @@ export function createServer() {
 
   app.get("/api/demo", handleDemo);
 
+  // Document management routes
+  app.post("/api/documents/upload", handleDocumentUpload);
+  app.get("/api/documents", handleGetDocuments);
+  app.delete("/api/documents/:id", handleDeleteDocument);
+
+  // Search route
+  app.post("/api/search", handleSearch);
+
   return app;
 }
