@@ -41,28 +41,56 @@ const mockDocumentContent = [
   }
 ];
 
-// Simple keyword matching function (in production, this would use vector similarity)
+// Enhanced keyword matching function with semantic understanding
 function calculateRelevanceScore(query: string, content: string): number {
-  const queryWords = query.toLowerCase().split(' ').filter(word => word.length > 2);
+  const queryLower = query.toLowerCase();
   const contentLower = content.toLowerCase();
-  
-  let matches = 0;
-  let totalWords = queryWords.length;
-  
+
+  // Define semantic keyword groups for better matching
+  const semanticGroups = {
+    dental: ['dental', 'teeth', 'tooth', 'dentist', 'oral', 'cavity', 'filling'],
+    medical: ['medical', 'health', 'insurance', 'coverage', 'treatment', 'doctor', 'hospital'],
+    payment: ['payment', 'pay', 'cost', 'fee', 'price', 'invoice', 'billing', 'charge'],
+    vacation: ['vacation', 'leave', 'holiday', 'time off', 'pto', 'absence'],
+    termination: ['termination', 'terminate', 'end', 'cancel', 'quit', 'fire', 'dismiss'],
+    privacy: ['privacy', 'data', 'confidential', 'gdpr', 'personal', 'information'],
+    benefits: ['benefits', 'insurance', 'coverage', 'bonus', 'compensation']
+  };
+
+  let score = 0;
+  let queryWords = queryLower.split(' ').filter(word => word.length > 2);
+
+  // Direct keyword matching
   queryWords.forEach(word => {
     if (contentLower.includes(word)) {
-      matches++;
+      score += 0.3;
     }
   });
-  
-  const baseScore = matches / totalWords;
-  
-  // Add bonus for exact phrase matches
-  if (contentLower.includes(query.toLowerCase())) {
-    return Math.min(0.95, baseScore + 0.3);
+
+  // Semantic matching
+  Object.entries(semanticGroups).forEach(([category, keywords]) => {
+    const queryHasCategory = keywords.some(keyword => queryLower.includes(keyword));
+    const contentHasCategory = keywords.some(keyword => contentLower.includes(keyword));
+
+    if (queryHasCategory && contentHasCategory) {
+      score += 0.5;
+    }
+  });
+
+  // Exact phrase matching gets highest score
+  if (contentLower.includes(queryLower)) {
+    score += 0.8;
   }
-  
-  return Math.min(0.9, baseScore);
+
+  // Partial phrase matching
+  if (queryWords.length > 1) {
+    const queryPhrase = queryWords.join(' ');
+    if (contentLower.includes(queryPhrase)) {
+      score += 0.6;
+    }
+  }
+
+  return Math.min(1.0, score);
 }
 
 function generateComprehensiveAnswer(query: string, topResult: SearchResult): string {
