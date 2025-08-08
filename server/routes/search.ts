@@ -187,9 +187,9 @@ export const handleSearch: RequestHandler = (req, res) => {
     documentsToSearch.forEach(document => {
       document.content.forEach((excerpt, index) => {
         const score = calculateRelevanceScore(query, excerpt);
-        
-        // Only include results with reasonable relevance
-        if (score > 0.1) {
+
+        // Only include results with meaningful relevance (higher threshold)
+        if (score > 0.3) {
           results.push({
             documentId: document.id,
             filename: document.filename,
