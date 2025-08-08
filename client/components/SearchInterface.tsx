@@ -158,84 +158,39 @@ export const SearchInterface: React.FC = () => {
           </div>
         )}
 
-        {/* Search Results */}
+        {/* Single Answer Result */}
         {searchResults.length > 0 && !isSearching && (
           <div className="space-y-6">
-            {/* Summary */}
-            {summary && (
-              <div className="p-4 bg-primary/5 border border-primary/20 rounded-lg">
-                <div className="flex items-start gap-3">
-                  <Brain className="h-5 w-5 text-primary mt-0.5" />
-                  <div>
-                    <h3 className="font-medium mb-2">AI Summary</h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed">{summary}</p>
-                  </div>
-                </div>
-              </div>
-            )}
+            {/* AI Answer */}
+            <div className="p-6 bg-primary/5 border border-primary/20 rounded-lg">
+              <div className="flex items-start gap-3">
+                <Brain className="h-6 w-6 text-primary mt-1" />
+                <div className="flex-1">
+                  <h3 className="font-semibold mb-3 text-lg">Answer</h3>
+                  <p className="text-sm text-foreground leading-relaxed mb-4">{summary}</p>
 
-            {/* Results Header */}
-            <div className="flex items-center justify-between">
-              <div>
-                <h3 className="font-medium">Search Results</h3>
-                <p className="text-sm text-muted-foreground">
-                  Found {searchResults.length} relevant excerpts for "{lastQuery}"
-                </p>
-              </div>
-              <Button variant="outline" size="sm">
-                <Filter className="h-3 w-3 mr-2" />
-                Filter
-              </Button>
-            </div>
-
-            {/* Results List */}
-            <div className="space-y-4">
-              {searchResults.map((result, index) => (
-                <Card key={index} className="border hover:border-primary/50 transition-colors">
-                  <CardContent className="p-4">
-                    <div className="flex items-start justify-between gap-4">
-                      <div className="flex-1 space-y-3">
-                        <div className="flex items-center gap-3">
-                          <FileText className="h-4 w-4 text-muted-foreground" />
-                          <span className="font-medium text-sm">{result.filename}</span>
-                          {result.pageNumber && (
-                            <Badge variant="outline" className="text-xs">
-                              Page {result.pageNumber}
-                            </Badge>
-                          )}
-                        </div>
-                        <p className="text-sm leading-relaxed text-muted-foreground">
-                          {result.excerpt}
-                        </p>
-                        <div className="flex items-center gap-2">
-                          <span className="text-xs text-muted-foreground">Relevance:</span>
-                          <div className="flex items-center gap-1">
-                            <div className={cn("h-2 w-16 rounded-full", getRelevanceColor(result.relevanceScore))}>
-                              <div 
-                                className="h-full bg-current rounded-full"
-                                style={{ width: `${result.relevanceScore * 100}%` }}
-                              />
-                            </div>
-                            <span className="text-xs text-muted-foreground">
-                              {Math.round(result.relevanceScore * 100)}%
-                            </span>
-                          </div>
+                  {/* Source Information */}
+                  {searchResults[0] && (
+                    <div className="mt-4 pt-4 border-t border-primary/20">
+                      <p className="text-xs text-muted-foreground mb-2">Source:</p>
+                      <div className="flex items-center gap-2">
+                        <FileText className="h-3 w-3 text-muted-foreground" />
+                        <span className="text-xs font-medium">{searchResults[0].filename}</span>
+                        {searchResults[0].pageNumber && (
+                          <Badge variant="outline" className="text-xs">
+                            Page {searchResults[0].pageNumber}
+                          </Badge>
+                        )}
+                        <div className="ml-auto">
+                          <Badge variant="secondary" className="text-xs">
+                            {Math.round(searchResults[0].relevanceScore * 100)}% confidence
+                          </Badge>
                         </div>
                       </div>
-                      <Button variant="ghost" size="sm">
-                        View Document
-                      </Button>
                     </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-
-            {/* Actions */}
-            <div className="flex justify-center pt-4">
-              <Button variant="outline">
-                Export Results
-              </Button>
+                  )}
+                </div>
+              </div>
             </div>
           </div>
         )}
