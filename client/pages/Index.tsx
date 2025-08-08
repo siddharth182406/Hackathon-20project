@@ -9,7 +9,6 @@ import { DocumentUpload } from '@/components/DocumentUpload';
 import { SearchInterface } from '@/components/SearchInterface';
 
 const Index = () => {
-  const [activeSection, setActiveSection] = useState<'upload' | 'search' | null>(null);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-accent/20 to-background">
