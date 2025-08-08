@@ -116,29 +116,45 @@ function calculateRelevanceScore(query: string, content: string): number {
 function generateComprehensiveAnswer(query: string, topResult: SearchResult): string {
   const queryLower = query.toLowerCase();
 
-  // Generate a comprehensive answer based on the top result
-  const answers = {
-    payment: `Based on the document "${topResult.filename}", ${topResult.excerpt}`,
-    termination: `According to the policy in "${topResult.filename}", ${topResult.excerpt}`,
-    privacy: `The privacy policy states in "${topResult.filename}": ${topResult.excerpt}`,
-    benefits: `Regarding benefits, the document "${topResult.filename}" specifies: ${topResult.excerpt}`,
-    confidential: `The confidentiality terms in "${topResult.filename}" indicate: ${topResult.excerpt}`,
-    default: `Based on the most relevant information found in "${topResult.filename}": ${topResult.excerpt}`
-  };
-
-  if (queryLower.includes('payment') || queryLower.includes('cost') || queryLower.includes('fee')) {
-    return answers.payment;
-  } else if (queryLower.includes('terminate') || queryLower.includes('end') || queryLower.includes('cancel')) {
-    return answers.termination;
-  } else if (queryLower.includes('privacy') || queryLower.includes('data') || queryLower.includes('gdpr')) {
-    return answers.privacy;
-  } else if (queryLower.includes('benefit') || queryLower.includes('vacation') || queryLower.includes('insurance')) {
-    return answers.benefits;
-  } else if (queryLower.includes('confidential') || queryLower.includes('proprietary')) {
-    return answers.confidential;
-  } else {
-    return answers.default;
+  // More sophisticated answer generation based on query intent
+  if (queryLower.includes('dental') || queryLower.includes('teeth')) {
+    return `According to the ${topResult.filename}, ${topResult.excerpt} This covers your dental care needs comprehensively.`;
   }
+
+  if (queryLower.includes('vacation') || queryLower.includes('time off') || queryLower.includes('pto')) {
+    return `Based on the policy outlined in ${topResult.filename}: ${topResult.excerpt} This policy applies to all eligible employees.`;
+  }
+
+  if (queryLower.includes('salary') || queryLower.includes('pay') || queryLower.includes('compensation')) {
+    return `Regarding compensation as specified in ${topResult.filename}: ${topResult.excerpt} This represents the current compensation structure.`;
+  }
+
+  if (queryLower.includes('remote') || queryLower.includes('work from home') || queryLower.includes('wfh')) {
+    return `The remote work policy in ${topResult.filename} states: ${topResult.excerpt} Please coordinate with your manager for implementation.`;
+  }
+
+  if (queryLower.includes('payment') || queryLower.includes('invoice') || queryLower.includes('billing')) {
+    return `Payment terms according to ${topResult.filename}: ${topResult.excerpt} These terms are standard for all transactions.`;
+  }
+
+  if (queryLower.includes('terminate') || queryLower.includes('end') || queryLower.includes('quit')) {
+    return `Termination procedures per ${topResult.filename}: ${topResult.excerpt} Please ensure all requirements are met.`;
+  }
+
+  if (queryLower.includes('privacy') || queryLower.includes('data') || queryLower.includes('personal information')) {
+    return `Privacy policy as detailed in ${topResult.filename}: ${topResult.excerpt} This ensures compliance with data protection regulations.`;
+  }
+
+  if (queryLower.includes('insurance') || queryLower.includes('medical') || queryLower.includes('health')) {
+    return `Health insurance coverage per ${topResult.filename}: ${topResult.excerpt} Contact HR for enrollment details.`;
+  }
+
+  if (queryLower.includes('401k') || queryLower.includes('retirement') || queryLower.includes('pension')) {
+    return `Retirement benefits outlined in ${topResult.filename}: ${topResult.excerpt} Speak with a financial advisor for optimization strategies.`;
+  }
+
+  // Default response for other queries
+  return `Based on the information found in ${topResult.filename}: ${topResult.excerpt} Please refer to the complete document for additional details.`;
 }
 
 export const handleSearch: RequestHandler = (req, res) => {
