@@ -140,14 +140,24 @@ export const handleSearch: RequestHandler = (req, res) => {
     // Sort by relevance score (highest first)
     results.sort((a, b) => b.relevanceScore - a.relevanceScore);
 
-    // Limit to top 10 results
-    const topResults = results.slice(0, 10);
+    // Get only the best result
+    const bestResult = results[0];
+
+    if (!bestResult) {
+      const response: SearchResponse = {
+        success: true,
+        query: query,
+        results: [],
+        summary: "I couldn't find any relevant information in your uploaded documents for this query. Please try rephrasing your question or upload more relevant documents."
+      };
+      return res.json(response);
+    }
 
     const response: SearchResponse = {
       success: true,
       query: query,
-      results: topResults,
-      summary: generateSummary(query, topResults)
+      results: [bestResult], // Return only the single best result
+      summary: generateComprehensiveAnswer(query, bestResult)
     };
 
     // Simulate processing delay for realistic feel
